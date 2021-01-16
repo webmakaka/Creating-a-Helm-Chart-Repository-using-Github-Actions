@@ -77,6 +77,11 @@ Cant create GITHUB_TOKEN give name for this as CR_TOKEN
 <br/>
 
     CR_TOKEN
+
+<br/>
+
+There were errors with new configs with GPG. I tried to work without any:
+
     GPG_KEYRING_BASE64
     GPG_PASSPHRASE
 
@@ -174,59 +179,92 @@ $ {
     $ helm version --short
     v3.5.0+g32c2223
 
-<!--
-
 <br/>
 
 ### Working with Charts Repo
 
-    $ curl -v https://charts-repo.webmakaka.com/index.yaml
-    OK
+```
+$ curl -v http://k8s-helm-repo.jsdev.org/index.yaml
+
+
+***
+apiVersion: v1
+entries:
+  cats-app:
+  - apiVersion: v1
+    appVersion: 0.1.1
+    created: "2021-01-16T12:55:03.286810338Z"
+    description: Cats Appication 0.1.1
+    digest: 1534c8995b653c31ff6946cb751d4c226762c5b85bde7237d23c03b8d3cabff8
+    name: cats-app
+    urls:
+    - https://github.com/webmakaka/Creating-a-Helm-Chart-Repository-using-Github-Actions/releases/download/cats-app-0.1.1/cats-app-0.1.1.tgz
+    version: 0.1.1
+generated: "2021-01-16T12:55:03.134263726Z"
+* Connection #0 to host k8s-helm-repo.jsdev.org left intact
+```
 
 <br/>
 
-    $ helm repo add webmakaka https://charts-repo.webmakaka.com
+    $ helm repo add jsdev http://k8s-helm-repo.jsdev.org
+
+<br/>
 
     $ helm repo update
 
 <br/>
 
-    $ helm search repo webmakaka/
-    NAME               	CHART VERSION	APP VERSION	DESCRIPTION
-    webmakaka/guestbook	0.1.0        	1.0        	A Helm chart for Guestbook 1.0
+    $ helm search repo jsdev/
+    NAME          	CHART VERSION	APP VERSION	DESCRIPTION
+    jsdev/cats-app	0.1.1        	0.1.1      	Cats Appication 0.1.1
 
 <br/>
 
-    $ helm install myguestbook webmakaka/guestbook
+    $ helm install cats-app jsdev/cats-app
 
 <br/>
 
-    $ helm list
-    NAME       	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
-    myguestbook	default  	1       	2020-04-13 05:43:26.200512363 +0300 MSK	deployed	guestbook-0.1.0	1.0
+```
+$ helm list
+NAME    	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART         	APP VERSION
+cats-app	default  	1       	2021-01-16 16:01:58.161204382 +0300 MSK	deployed	cats-app-0.1.1	0.1.1
+```
 
 <br/>
 
-    $ helm status myguestbook
-    NAME: myguestbook
-    LAST DEPLOYED: Mon Apr 13 05:43:26 2020
-    NAMESPACE: default
-    STATUS: deployed
-    REVISION: 1
-    TEST SUITE: None
+```
+$ helm status cats-app
+NAME: cats-app
+LAST DEPLOYED: Sat Jan 16 16:01:58 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
 
 <br/>
 
-http://frontend.minikube.local/
+```
+$ kubectl get pods
+NAME                                            READY   STATUS    RESTARTS   AGE
+minikube-cats-app-deployment-66bd6cf4b5-5lr2s   1/1     Running   0          2m11s
+minikube-cats-app-deployment-66bd6cf4b5-jwbnd   1/1     Running   0          2m11s
+minikube-cats-app-deployment-66bd6cf4b5-q92lq   1/1     Running   0          2m11s
+```
+
+<br/>
+
+```
+http://cats.app/
+OK
+```
 
 <br/>
 
 ### Remove everything
 
-    $ helm delete myguestbook
-    $ helm repo remove webmakaka
-
--->
+    $ helm delete cats-app
+    $ helm repo remove jsdev
 
 ---
 
