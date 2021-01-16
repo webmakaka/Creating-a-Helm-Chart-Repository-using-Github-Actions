@@ -10,7 +10,7 @@ https://github.com/helm/charts-repo-actions-demo
 
 <br/>
 
-## Prepare
+## Prepare Repository
 
     $ git checkout --orphan gh-pages
     $ rm -rf *
@@ -18,7 +18,7 @@ https://github.com/helm/charts-repo-actions-demo
     $ rm -rf .gitignore
     $ git add --all
     $ git commit -m "empty gh-pages branch"
-    $ touch index.html
+    $ vi index.html
 
 <br/>
 
@@ -28,7 +28,7 @@ https://github.com/helm/charts-repo-actions-demo
 
 <br/>
 
-    $ touch CNAME
+    $ vi CNAME
 
 <br/>
 
@@ -44,7 +44,7 @@ k8s-helm-repo.jsdev.org
 
 <br/>
 
-### Domain Name Registrator
+### Domain Name DNS Provider
 
 <br/>
 
