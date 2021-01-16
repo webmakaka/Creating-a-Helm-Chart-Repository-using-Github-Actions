@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  cats-app:
+  - apiVersion: v1
+    appVersion: 0.1.1
+    created: "2021-01-16T12:55:03.286810338Z"
+    description: Cats Appication 0.1.1
+    digest: 1534c8995b653c31ff6946cb751d4c226762c5b85bde7237d23c03b8d3cabff8
+    name: cats-app
+    urls:
+    - https://github.com/webmakaka/Creating-a-Helm-Chart-Repository-using-Github-Actions/releases/download/cats-app-0.1.1/cats-app-0.1.1.tgz
+    version: 0.1.1
+generated: "2021-01-16T12:55:03.134263726Z"
