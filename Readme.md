@@ -72,11 +72,11 @@ HELM_CHART_REPOSITIORY_TOKEN
 
 GitHub -> Project -> Settings -> Secretes -> Create Secretes
 
-Cant create GITHUB_TOKEN give name for this as HELM_CHART_REPOSITIORY
+Cant create GITHUB_TOKEN give name for this as CR_TOKEN
 
 <br/>
 
-    HELM_CHART_REPOSITIORY
+    CR_TOKEN
     GPG_KEYRING_BASE64
     GPG_PASSPHRASE
 
