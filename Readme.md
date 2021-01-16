@@ -266,6 +266,12 @@ OK
     $ helm delete cats-app
     $ helm repo remove jsdev
 
+
+<br/>
+
+**Also can be helpful for this theme**  
+https://www.civo.com/learn/guide-to-helm-3-with-an-express-js-microservice
+
 ---
 
 <br/>
@@ -274,3 +280,5 @@ OK
 
 Any questions in english: <a href="https://jsdev.org/chat/">Telegram Chat</a>  
 Любые вопросы на русском: <a href="https://jsdev.ru/chat/">Телеграм чат</a>
+
+
