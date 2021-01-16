@@ -46,6 +46,8 @@ k8s-helm-repo.jsdev.org
 
 ### Domain Name Registrator
 
+<br/>
+
 CNAME -> k8s-helm-repo.jsdev.org -> github.io
 
 <br/>
@@ -54,15 +56,25 @@ CNAME -> k8s-helm-repo.jsdev.org -> github.io
 
 <br/>
 
+![Application](/img/create-repo-page.png?raw=true)
+
+<br/>
+
+### Github Account Settings
+
 GitHub -> Settings -> Personal access tokens -> Create Token
+
+<br/>
+
+HELM_CHART_REPOSITIORY_TOKEN
 
 <br/>
 
 GitHub -> Project -> Settings -> Secretes -> Create Secretes
 
+    HELM_CHART_REPOSITIORY dca3e66f64cce97dde72b3473a840d8b14e16427
     GPG_KEYRING_BASE64
     GPG_PASSPHRASE
-    GITHUB_TOKEN
 
 <br/>
 
