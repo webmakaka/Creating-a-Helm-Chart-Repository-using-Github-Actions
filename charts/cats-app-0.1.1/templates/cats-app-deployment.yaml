@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minikube-cats-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: cats-app
+  template:
+    metadata:
+      labels:
+        component: cats-app
+    spec:
+      containers:
+        - name: cats-app
+          image: webmakaka/cats-app
+          ports:
+            - containerPort: 8080
