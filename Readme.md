@@ -185,8 +185,11 @@ $ {
 
 ```
 $ curl -v http://k8s-helm-repo.jsdev.org/index.yaml
+```
 
+<br/>
 
+```
 ***
 apiVersion: v1
 entries:
@@ -266,11 +269,120 @@ OK
     $ helm delete cats-app
     $ helm repo remove jsdev
 
-
 <br/>
 
 **Also can be helpful for this theme**  
 https://www.civo.com/learn/guide-to-helm-3-with-an-express-js-microservice
+
+<br/>
+
+### [Additional] Helm + Flux 2
+
+https://www.youtube.com/watch?v=JcKUawSQfQ0
+
+<br/>
+
+https://gist.github.com/scottrigby/c2f34d2557113a1681acfc1fac969305
+
+<br/>
+
+```
+$ curl -s https://toolkit.fluxcd.io/install.sh | sudo bash
+```
+
+<br/>
+
+```
+$ flux install --components source-controller,helm-controller --export | kubectl apply -f -
+```
+
+<br/>
+
+```
+$ cat <<EOF | kubectl apply -f -
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: jsdev
+spec:
+  interval: 10m
+  url: http://k8s-helm-repo.jsdev.org
+EOF
+```
+
+<!--
+<br/>
+
+ORIG
+
+```
+$ cat <<EOF | kubectl apply -f -
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: jsdev
+  namespace: default
+spec:
+  interval: 10m
+  url: http://k8s-helm-repo.jsdev.org
+EOF
+``` -->
+
+<br/>
+
+```
+$ kubectl describe helmrepositories.source.toolkit.fluxcd.io
+```
+
+<br/>
+
+```
+$ cat <<EOF | kubectl apply -f -
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cats-app
+  namespace: default
+spec:
+  interval: 5m
+  releaseName: cats-app
+  chart:
+    spec:
+      chart: cats-app
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: jsdev
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    replicaCount: 1
+EOF
+```
+
+```
+$ kubectl get helmreleases.helm.toolkit.fluxcd.io
+```
+
+```
+$ helm ls
+NAME    	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART         	APP VERSION
+cats-app	default  	1       	2021-01-18 00:20:51.637377479 +0000 UTC	deployed	cats-app-0.1.1	0.1.1
+
+```
+
+```
+$ kubectl get pods
+NAME                                            READY   STATUS    RESTARTS   AGE
+minikube-cats-app-deployment-66bd6cf4b5-7fjgp   1/1     Running   0          35s
+minikube-cats-app-deployment-66bd6cf4b5-g9c6h   1/1     Running   0          35s
+minikube-cats-app-deployment-66bd6cf4b5-rdcfp   1/1     Running   0          35s
+
+```
 
 ---
 
@@ -280,5 +392,3 @@ https://www.civo.com/learn/guide-to-helm-3-with-an-express-js-microservice
 
 Any questions in english: <a href="https://jsdev.org/chat/">Telegram Chat</a>  
 Любые вопросы на русском: <a href="https://jsdev.ru/chat/">Телеграм чат</a>
-
-
